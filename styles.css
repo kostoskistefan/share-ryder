@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+body 
+{
+    background: url(images/car.png) no-repeat fixed center; 
+    background-size: cover; 
+}
+
+body::before
+{
+    content: "";
+    z-index: -1;
+    position: inherit;
+    left: inherit;
+    top: inherit;
+    width: inherit;
+    height: inherit;
+    background-image: inherit;
+    background-size: cover;
+    filter: blur(10px);
+}
+
+.img-container img
+{
+    object-fit: cover;
+    border-radius: 50%;
+    height: 10rem;
+    width: 10rem;
+}
+
+.spacer {
+    flex: 1;
+}

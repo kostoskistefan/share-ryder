@@ -1,0 +1,66 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Share Ryder</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        $(() => {
+            $("#header").load("header.html");
+            $("form").on("submit", function (e) {
+                e.preventDefault();
+
+                let user = {
+                    "email": $("#loginEmail").val(),
+                    "password": $("#loginPassword").val()
+                };
+
+                localStorage.setItem("user", JSON.stringify(user));
+
+                window.location.href = "index.html";
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div class="container">
+        <div class="row align-items-center justify-content-center" style="height: calc(100vh - 56px);">
+            <div class="col-5">
+                <form class="bg-white rounded p-4">
+                    <h3 class="pb-2 text-center">Најава</h3>
+                    <hr>
+                    <div class="form-group">
+                        <label for="loginEmail">Е-маил:</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="john@smith.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Лозинка:</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block mt-5">Најави се</button>
+                    <a href="index.html" class="btn btn-outline-danger btn-block">Назад</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

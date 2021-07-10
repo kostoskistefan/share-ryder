@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid mx-5">
+        <a class="col navbar-brand font-weight-bold" href="index.html">Share Ryder</a>
+        <a class="col-2 btn btn-outline-warning" href="rides.html">Најди Превоз</a>
+        <div class="col d-flex flex-column align-items-end">
+            <ul class="navbar-nav">
+                <div class="btn-group" role="group">
+                    <a href="login.html" type="button" class="btn btn-warning">Најава</a>
+                    <a href="register.html" type="button" class="btn btn-success">Регистрација</a>
+                </div>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle text-decoration-none" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-user"></i>
+                            <span class="px-2" id="loggedUser"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="add-ride.html">Додади превоз</a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item btn-link"
+                                onclick="localStorage.removeItem('user'); window.location.href = 'index.html'">Одјави
+                                се</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    window.scrollTo(0, 0);
+    $(() => {
+        if ("user" in localStorage) {
+            $(".btn-group").hide();
+            $(".dropdown").parent().show();
+            $("#loggedUser").text(JSON.parse(localStorage.getItem("user")).email);
+        }
+        else {
+            $(".btn-group").parent().show();
+            $(".dropdown").parent().hide();
+        }
+    })
+</script>
