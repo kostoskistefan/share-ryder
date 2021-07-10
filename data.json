@@ -1,0 +1,23 @@
+[
+    {
+        "startDestination": "Прилеп",
+        "endDestination": "Скопје",
+        "departure": "2021-07-15",
+        "seats": 5,
+        "price": 186
+    },
+    {
+        "startDestination": "Гевгелија",
+        "endDestination": "Охрид",
+        "departure": "2021-07-23",
+        "seats": 5,
+        "price": 228
+    },
+    {
+        "startDestination": "Крушево",
+        "endDestination": "Прилеп",
+        "departure": "2021-07-19",
+        "seats": 5,
+        "price": 250
+    }
+]

@@ -22,12 +22,74 @@
         if (!("user" in localStorage))
             window.location.href = "login.html";
 
-        $(() => $("#header").load("header.html"))
+        function createRide(ride) {
+            const templateClone = document.getElementById('rideTemplate').content.cloneNode(true);
+
+            let imageNumber = Math.floor(Math.random() * 2) + 1;
+
+            $(templateClone).find("a").text(ride.startDestination + " - " + ride.endDestination);
+            $(templateClone).find(".departureSpan").text(ride.departure);
+            $(templateClone).find(".seatsSpan").text("0/" + ride.seats);
+            $(templateClone).find("p span").text(ride.price);
+            $(templateClone).find("img").attr("src", "images/man" + imageNumber + ".jpg");
+
+            document.getElementById("rides").appendChild(templateClone);
+        }
+
+        function showRides() {
+            rides = JSON.parse(localStorage.getItem("rideData"));
+
+            for (let ride of rides)
+                createRide(ride);
+
+            $("#rides div:first").removeClass("mt-3");
+            $('#rides').hide().show(0);
+        }
+
+        $(() => {
+            $("#header").load("header.html");
+
+            if (!("rideData" in localStorage)) {
+                $.getJSON("data.json", (rideData) => {
+                    localStorage.setItem("rideData", JSON.stringify(rideData));
+                    showRides();
+                });
+            }
+
+            else showRides();
+        });
     </script>
 </head>
 
 <body>
     <div id="header"></div>
+
+    <template id="rideTemplate">
+        <div class="row p-3 mt-3 d-flex border rounded">
+            <div
+                class="img-container border-right pr-4 col-3 d-flex flex-column justify-content-center align-items-center">
+                <img src="images/man1.jpg" alt="Portrait of a man">
+            </div>
+            <div class="col d-flex align-items-start flex-column">
+                <div class="mb-auto d-flex flex-column">
+                    <a href="selected-ride.html" class="h3 mb-3">Прилеп - Скопје</a>
+                    <small class="text-secondary">Наредно поаѓање: <span class="departureSpan"></span></small>
+                    <small class="text-secondary">Резервирани места: <span class="seatsSpan"></span></small>
+                </div>
+                <div class="d-flex justify-content-between w-100">
+                    <div>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="far fa-star text-warning"></i>
+                    </div>
+                    <p class="m-0 p-0">Цена: <span>118</span> ден/човек</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
 
     <div class="container bg-white rounded shadow py-2 px-3 mt-1">
         <div class="d-flex align-items-center mb-1">
@@ -60,54 +122,7 @@
                     <label class="form-check-label" for="ratingRadio">Оцена</label>
                 </div>
             </div>
-            <div class="col-xl col-12">
-                <div class="row p-3 mb-3 d-flex border rounded">
-                    <div
-                        class="img-container border-right pr-4 col-3 d-flex flex-column justify-content-center align-items-center">
-                        <img src="images/man1.jpg" alt="Portrait of a man">
-                    </div>
-                    <div class="col d-flex align-items-start flex-column">
-                        <div class="mb-auto d-flex flex-column">
-                            <a href="selected-ride.html" class="h3 mb-3">Прилеп - Скопје</a>
-                            <small class="text-secondary">Наредно поаѓање: 15.07.2021</small>
-                            <small class="text-secondary">Резервирани места: 2/4</small>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <div>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="far fa-star text-warning"></i>
-                            </div>
-                            <p class="m-0 p-0">Цена: 118 ден/човек</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-3 mt-3 d-flex border rounded">
-                    <div
-                        class="img-container border-right pr-4 col-3 d-flex flex-column justify-content-center align-items-center">
-                        <img src="images/man2.jpg" alt="Portrait of a man">
-                    </div>
-                    <div class="col d-flex align-items-start flex-column">
-                        <div class="mb-auto d-flex flex-column">
-                            <a href="selected-ride.html" class="h3 mb-3">Гевгелија - Охрид</a>
-                            <small class="text-secondary">Наредно поаѓање: 18.07.2021</small>
-                            <small class="text-secondary">Резервирани места: 1/5</small>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <div>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="far fa-star text-warning"></i>
-                                <i class="far fa-star text-warning"></i>
-                            </div>
-                            <p class="m-0 p-0">Цена: 148 ден/човек</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="col-xl col-12" id="rides"></div>
         </div>
     </div>
 

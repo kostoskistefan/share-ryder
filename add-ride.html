@@ -17,15 +17,45 @@
         crossorigin="anonymous" />
 
     <link rel="stylesheet" href="styles.css">
-    <script src="code.js"></script>
 
     <script>
         if (!("user" in localStorage))
             window.location.href = "login.html";
 
+        function createRide() {
+            let ride = {
+                "startDestination": $("#startDestination").val(),
+                "endDestination": $("#endDestination").val(),
+                "departure": $("#departure").val(),
+                "seats": $("#seats").val(),
+                "price": $("#price").val()
+            }
 
+            let allRides = JSON.parse(localStorage.getItem("rideData"));
 
-        $(() => $("#header").load("header.html"))
+            allRides.push(ride);
+
+            localStorage.setItem("rideData", JSON.stringify(allRides));
+        }
+
+        $(() => {
+            $("#header").load("header.html");
+
+            $("form").on("submit", function (e) {
+                e.preventDefault();
+
+                if (!("rideData" in localStorage)) {
+                    $.getJSON("data.json", (rideData) => {
+                        localStorage.setItem("rideData", JSON.stringify(rideData));
+                        createRide();
+                    });
+                }
+
+                else createRide();
+
+                window.location.href = "rides.html";
+            })
+        });
     </script>
 </head>
 
@@ -41,24 +71,32 @@
                     <div class="row form-group">
                         <div class="col-lg col-12 mb-lg-0 mb-3">
                             <label for="startDestination">Почетна дестинација:</label>
-                            <input type="text" class="form-control" id="startDestination" placeholder="пр. Скопје" required>
+                            <input type="text" class="form-control" id="startDestination" placeholder="пр. Скопје"
+                                required>
                         </div>
                         <div class="col-lg col-12">
                             <label for="endDestination">Крајна дестинација:</label>
-                            <input type="text" class="form-control" id="endDestination" placeholder="пр. Прилеп" required>
+                            <input type="text" class="form-control" id="endDestination" placeholder="пр. Прилеп"
+                                required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="freeSpaces">Слободни места:</label>
-                        <input type="number" class="form-control" id="freeSpaces" value="1" required>
+                        <label for="seats">Слободни места:</label>
+                        <input type="number" class="form-control" id="seats" value="1" required>
                     </div>
                     <div class="form-group">
                         <label for="description">Опис:</label>
-                        <textarea type="text" class="form-control" id="description" placeholder="Опис за превозот" required></textarea>
+                        <textarea type="text" class="form-control" id="description" placeholder="Опис за превозот"
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="departure">Ден на поаѓање:</label>
+                        <input type="date" class="form-control" id="departure" required>
                     </div>
                     <div class="form-group">
                         <label for="price">Цена:</label>
-                        <input type="number" class="form-control" id="price" placeholder="Цена за човек во денари" required>
+                        <input type="number" class="form-control" id="price" placeholder="Цена за човек во денари"
+                            required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Додади</button>
                     <a href="index.html" class="btn btn-outline-danger btn-block">Назад</a>
