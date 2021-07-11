@@ -31,21 +31,22 @@
             <div class="col-lg col-12 d-flex flex-column justify-content-center">
                 <h1 class="font-weight-bold text-white text-center">Брз, лесен и едноставен начин да пронајдеш превоз до
                     било која дестинација</h1>
-                <a href="rides.html" class="btn btn-outline-warning mx-5 py-3 mt-5">Разгледај ги сите превози</a>
+                <a href="rides.html" class="btn btn-outline-warning mx-5 py-3 mt-5">Разгледај ги сите патувања</a>
             </div>
             <div class="col-lg-4 col-12 mt-lg-0 mt-5">
                 <form class="bg-white rounded p-3" action="rides.html">
-                    <h3 class="pb-4 text-center">Пронајди превоз</h3>
+                    <h3 class="text-center">Пронајди патување</h3>
+                    <hr>
                     <div class="form-group">
-                        <label for="startDestination">Почетна дестинација</label>
+                        <label for="startDestination">Почетна дестинација: <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="startDestination" required>
                     </div>
                     <div class="form-group">
-                        <label for="endDestination">Крајна дестинација</label>
+                        <label for="endDestination">Крајна дестинација: <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="endDestination" required>
                     </div>
                     <div class="form-group">
-                        <label for="date">Датум на поаѓање</label>
+                        <label for="date">Датум на поаѓање: <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="date" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block mt-5">Пребарај</button>
